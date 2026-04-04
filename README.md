@@ -285,6 +285,22 @@ Generate options:
   --api-version <version>      API version
 ```
 
+## Examples
+
+The [`examples/`](./examples) directory contains four SvelteKit API projects covering different scenarios:
+
+| Example | What it tests |
+|---------|---------------|
+| **bare-minimum** | Tier 1/3: query params, destructured body, no Zod, no auth |
+| **zod-heavy** | Tier 2: nested objects, arrays, enums, nullable, `.openapi()` metadata |
+| **auth-patterns** | Public vs `requireAuth` vs `requireRole` (single and multi-role) |
+| **complex-routing** | Route groups, 3-level nested params, rest params, optional params |
+
+```bash
+# Try it
+node dist/cli.js serve -c examples/zod-heavy/sveltekit-openapi.config.ts --theme swagger --open
+```
+
 ## License
 
 MIT
