@@ -88,6 +88,15 @@ describe('analyzeRequestBody', () => {
     const result = analyzeRequestBody(body!);
     expect(result).toBeUndefined();
   });
+
+  it('returns generic body when not destructured (Tier 3)', () => {
+    const body = getHandlerBody(path.join(fixtures, 'generic-body/+server.ts'), 'POST');
+    const result = analyzeRequestBody(body!);
+    expect(result).toBeDefined();
+    expect(result!.required).toBe(true);
+    expect(result!.fields).toHaveLength(0); // no destructured fields
+    expect(result!.schemaRef).toBeUndefined();
+  });
 });
 
 describe('analyzeResponses', () => {
