@@ -1,3 +1,10 @@
+## [0.2.2](https://github.com/moo3/sveltekit-openapi/compare/v0.2.1...v0.2.2) (2026-04-06)
+
+
+### Bug Fixes
+
+* externalize vite to eliminate 132 DTS build warnings ([561ec69](https://github.com/moo3/sveltekit-openapi/commit/561ec6923cca2c27b14381d44e4232777d93ec5c))
+
 ## [0.2.1](https://github.com/moo3/sveltekit-openapi/compare/v0.2.0...v0.2.1) (2026-04-06)
 
 
