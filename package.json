@@ -35,6 +35,9 @@
     "documentation",
     "typescript"
   ],
+  "engines": {
+    "node": ">=20"
+  },
   "license": "MIT",
   "dependencies": {
     "commander": "^13.1.0",
