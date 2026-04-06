@@ -19,7 +19,11 @@ Existing community tools require JSDoc annotations or are deprecated. This tool 
 ## Install
 
 ```bash
+# npm
 npm install -D @sveltekit-openapi/core
+
+# Deno
+deno add jsr:@sveltekit-openapi/core
 ```
 
 ## Quick Start
@@ -77,7 +81,11 @@ The Vite plugin:
 ### Programmatic
 
 ```ts
+// Node / npm
 import { generate } from '@sveltekit-openapi/core';
+
+// Deno / JSR
+import { generate } from 'jsr:@sveltekit-openapi/core';
 
 const result = await generate({
   routesDir: 'src/routes',
