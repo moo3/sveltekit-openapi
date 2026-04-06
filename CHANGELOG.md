@@ -1,3 +1,10 @@
+## [0.2.1](https://github.com/moo3/sveltekit-openapi/compare/v0.2.0...v0.2.1) (2026-04-06)
+
+
+### Bug Fixes
+
+* add repository field to package.json for npm provenance ([1c706f2](https://github.com/moo3/sveltekit-openapi/commit/1c706f2f6c840876938241d5ccdb682363db60b9))
+
 # [0.2.0](https://github.com/moo3/sveltekit-openapi/compare/v0.1.0...v0.2.0) (2026-04-06)
 
 
