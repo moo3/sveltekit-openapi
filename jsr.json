@@ -1,0 +1,19 @@
+{
+  "name": "@sveltekit-openapi/core",
+  "version": "0.1.0",
+  "exports": {
+    ".": "./src/index.ts",
+    "./vite": "./src/vite.ts"
+  },
+  "publish": {
+    "include": [
+      "src/**/*.ts",
+      "jsr.json",
+      "README.md",
+      "LICENSE"
+    ],
+    "exclude": [
+      "src/**/*.test.ts"
+    ]
+  }
+}
