@@ -9,14 +9,21 @@ import { generateOpenAPIDocument } from './core/generator.js';
 import type { SvelteKitOpenAPIConfig, RouteInfo, SchemaComponent } from './types.js';
 import type { OpenAPIV3_1 } from './openapi-types.js';
 
+/** {@inheritDoc SvelteKitOpenAPIConfig} */
 export type { SvelteKitOpenAPIConfig, RouteInfo, SchemaComponent };
+/** {@inheritDoc OpenAPIV3_1} */
 export type { OpenAPIV3_1 };
 export { createViewerHtml, type ViewerTheme } from './viewer.js';
 
+/** Result returned by the {@linkcode generate} function. */
 export interface GenerateResult {
+  /** The generated OpenAPI 3.1 document object. */
   document: OpenAPIV3_1.Document;
+  /** Absolute path where the spec file was written. */
   outputPath: string;
+  /** Number of route files discovered. */
   routeCount: number;
+  /** Total number of HTTP method handlers across all routes. */
   endpointCount: number;
 }
 

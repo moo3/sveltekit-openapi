@@ -1,3 +1,4 @@
+/** Supported API documentation viewer themes. All loaded from CDN at runtime. */
 export type ViewerTheme = 'swagger' | 'scalar' | 'redoc';
 
 interface ViewerOptions {
