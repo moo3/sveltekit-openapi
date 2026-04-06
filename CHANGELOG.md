@@ -1,3 +1,10 @@
+## [0.2.4](https://github.com/moo3/sveltekit-openapi/compare/v0.2.3...v0.2.4) (2026-04-06)
+
+
+### Bug Fixes
+
+* trigger release for JSR docs and config fixes ([7133543](https://github.com/moo3/sveltekit-openapi/commit/713354389176a74e2905047a34d64af4b3faf760))
+
 ## [0.2.3](https://github.com/moo3/sveltekit-openapi/compare/v0.2.2...v0.2.3) (2026-04-06)
 
 

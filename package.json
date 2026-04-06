@@ -1,6 +1,6 @@
 {
   "name": "@sveltekit-openapi/core",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Auto-generate OpenAPI 3.1 docs from SvelteKit API routes",
   "type": "module",
   "main": "./dist/index.mjs",
