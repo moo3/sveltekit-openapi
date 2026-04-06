@@ -3,27 +3,27 @@
   "version": "0.1.0",
   "description": "Auto-generate OpenAPI 3.1 docs from SvelteKit API routes",
   "type": "module",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
   "bin": {
-    "sveltekit-openapi": "dist/cli.js"
+    "sveltekit-openapi": "dist/cli.mjs"
   },
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
+      "types": "./dist/index.d.mts",
+      "import": "./dist/index.mjs"
     },
     "./vite": {
-      "types": "./dist/vite.d.ts",
-      "import": "./dist/vite.js"
+      "types": "./dist/vite.d.mts",
+      "import": "./dist/vite.mjs"
     }
   },
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "tsup",
-    "dev": "tsup --watch",
+    "build": "tsdown",
+    "dev": "tsdown --watch",
     "test": "vitest run",
     "test:watch": "vitest"
   },
@@ -47,7 +47,7 @@
     "@semantic-release/git": "^10.0.1",
     "@types/node": "^25.5.2",
     "semantic-release": "^25.0.3",
-    "tsup": "^8.4.0",
+    "tsdown": "^0.21.7",
     "typescript": "^5.8.0",
     "vitest": "^3.1.0"
   }
