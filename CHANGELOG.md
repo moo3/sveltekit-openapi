@@ -1,3 +1,10 @@
+# [0.3.0](https://github.com/moo3/sveltekit-openapi/compare/v0.2.4...v0.3.0) (2026-04-06)
+
+
+### Features
+
+* replace custom openapi-types.ts with openapi3-ts ([#1](https://github.com/moo3/sveltekit-openapi/issues/1)) ([009f539](https://github.com/moo3/sveltekit-openapi/commit/009f5393f9af7a445a32d6146076123c6f58c562))
+
 ## [0.2.4](https://github.com/moo3/sveltekit-openapi/compare/v0.2.3...v0.2.4) (2026-04-06)
 
 
