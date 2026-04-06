@@ -9,7 +9,12 @@ import type { ScannedRoute, SvelteKitOpenAPIConfig } from '../types.js';
  *   src/routes/api/v1/courses/[courseId]/modules/+server.ts
  *   → /api/v1/courses/{courseId}/modules
  */
-export function toOpenAPIPath(filePath: string, routesDir: string): { routePath: string; pathParams: string[] } {
+export interface OpenAPIPathResult {
+  routePath: string;
+  pathParams: string[];
+}
+
+export function toOpenAPIPath(filePath: string, routesDir: string): OpenAPIPathResult {
   let rel = path.relative(routesDir, filePath);
 
   // Strip +server.ts suffix
