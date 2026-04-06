@@ -1,3 +1,10 @@
+## [0.2.3](https://github.com/moo3/sveltekit-openapi/compare/v0.2.2...v0.2.3) (2026-04-06)
+
+
+### Bug Fixes
+
+* exclude vite/cli from JSR exports, use deps.neverBundle in tsdown config ([5179879](https://github.com/moo3/sveltekit-openapi/commit/517987978220467be48da88d3acb8a63b04f3342))
+
 ## [0.2.2](https://github.com/moo3/sveltekit-openapi/compare/v0.2.1...v0.2.2) (2026-04-06)
 
 
