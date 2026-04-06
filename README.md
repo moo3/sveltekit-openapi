@@ -336,8 +336,7 @@ src/
 ├── cli.ts                # CLI: generate, preview, serve commands
 ├── vite.ts               # Vite plugin: sveltekitOpenApi()
 ├── viewer.ts             # HTML viewer: Swagger UI / Scalar / Redoc
-├── types.ts              # Config + internal types
-├── openapi-types.ts      # OpenAPI 3.1 type definitions
+├── types.ts              # Config + internal types (uses openapi3-ts)
 ├── core/
 │   ├── scanner.ts        # Discovers +server.ts files, converts paths
 │   ├── parser.ts         # Orchestrates per-file AST analysis
@@ -421,6 +420,7 @@ See [`examples/README.md`](./examples/README.md) for details on what each projec
 | Package | Purpose |
 |---------|---------|
 | [ts-morph](https://ts-morph.com/) | TypeScript AST analysis |
+| [openapi3-ts](https://github.com/metadevpro/openapi3-ts) | OpenAPI 3.1 types and builder |
 | [fast-glob](https://github.com/mrmlnc/fast-glob) | File discovery |
 | [commander](https://github.com/tj/commander.js) | CLI framework |
 | [yaml](https://github.com/eemeli/yaml) | YAML output |

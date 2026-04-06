@@ -1,4 +1,16 @@
-import type { OpenAPIV3_1 } from '../openapi-types.js';
+import type {
+  OpenAPIObject,
+  PathItemObject,
+  OperationObject,
+  ParameterObject,
+  RequestBodyObject,
+  ResponseObject,
+  SchemaObject,
+  SchemaObjectType,
+  ReferenceObject,
+  SecuritySchemeObject,
+} from 'openapi3-ts/oas31';
+import { OpenApiBuilder } from 'openapi3-ts/oas31';
 import type { RouteInfo, MethodInfo, SchemaComponent, SvelteKitOpenAPIConfig } from '../types.js';
 
 /**
@@ -8,70 +20,65 @@ export function generateOpenAPIDocument(
   routes: RouteInfo[],
   schemaComponents: SchemaComponent[],
   config: SvelteKitOpenAPIConfig,
-): OpenAPIV3_1.Document {
+): OpenAPIObject {
   const hasAuth = routes.some((r) => r.methods.some((m) => m.security.length > 0));
   const tags = collectTags(routes, config);
 
-  const doc: OpenAPIV3_1.Document = {
-    openapi: '3.1.0',
-    info: {
-      title: config.info?.title || 'SvelteKit API',
-      version: config.info?.version || '1.0.0',
-      ...(config.info?.description ? { description: config.info.description } : {}),
-    },
-    paths: {},
-    tags: tags.map((t) => ({ name: t })),
-  };
+  const builder = OpenApiBuilder.create()
+    .addTitle(config.info?.title || 'SvelteKit API')
+    .addVersion(config.info?.version || '1.0.0');
+
+  if (config.info?.description) {
+    builder.addDescription(config.info.description);
+  }
 
   if (config.servers && config.servers.length > 0) {
-    doc.servers = config.servers;
+    for (const server of config.servers) {
+      builder.addServer(server);
+    }
+  }
+
+  for (const tag of tags) {
+    builder.addTag({ name: tag });
   }
 
   // Build paths
   for (const route of routes) {
-    const pathItem: OpenAPIV3_1.PathItemObject = {};
+    const pathItem: PathItemObject = {};
 
     for (const method of route.methods) {
       const operation = buildOperation(route, method, config);
       pathItem[method.method] = operation;
     }
 
-    doc.paths[route.routePath] = pathItem;
+    builder.addPath(route.routePath, pathItem);
   }
 
-  // Build components
-  const components: OpenAPIV3_1.ComponentsObject = {};
-
+  // Add schema components
   if (schemaComponents.length > 0) {
-    components.schemas = {};
     for (const comp of schemaComponents) {
-      components.schemas[comp.name] = comp.schema as OpenAPIV3_1.SchemaObject;
+      builder.addSchema(comp.name, comp.schema as SchemaObject);
     }
   }
 
+  // Add security scheme
   if (hasAuth) {
-    components.securitySchemes = {
-      bearerAuth: config.auth?.securityScheme || {
-        type: 'http',
-        scheme: 'bearer',
-        bearerFormat: 'JWT',
-      },
-    };
+    builder.addSecurityScheme('bearerAuth', config.auth?.securityScheme as SecuritySchemeObject || {
+      type: 'http',
+      scheme: 'bearer',
+      bearerFormat: 'JWT',
+    });
   }
 
-  if (Object.keys(components).length > 0) {
-    doc.components = components;
-  }
-
-  return doc;
+  return builder.getSpec();
 }
 
 function buildOperation(
   route: RouteInfo,
   method: MethodInfo,
   config: SvelteKitOpenAPIConfig,
-): OpenAPIV3_1.OperationObject {
-  const operation: OpenAPIV3_1.OperationObject = {
+): OperationObject {
+  const operation: OperationObject = {
     operationId: generateOperationId(method.method, route.routePath),
     responses: {},
   };
@@ -84,11 +91,11 @@ function buildOperation(
 
   // Parameters
   if (method.params.length > 0) {
-    operation.parameters = method.params.map((p) => ({
+    operation.parameters = method.params.map((p): ParameterObject => ({
       name: p.name,
       in: p.in,
       required: p.required,
-      schema: { type: p.type } as OpenAPIV3_1.SchemaObject,
+      schema: { type: p.type as SchemaObjectType },
       ...(p.description ? { description: p.description } : {}),
     }));
   }
@@ -96,14 +103,14 @@ function buildOperation(
   // Request body
   if (method.requestBody) {
     const rb = method.requestBody;
-    let schema: OpenAPIV3_1.SchemaObject | OpenAPIV3_1.ReferenceObject;
+    let schema: SchemaObject | ReferenceObject;
 
     if (rb.schemaRef) {
       schema = { $ref: `#/components/schemas/${rb.schemaRef}` };
     } else if (rb.fields.length > 0) {
-      const properties: Record<string, OpenAPIV3_1.SchemaObject> = {};
+      const properties: Record<string, SchemaObject> = {};
       for (const field of rb.fields) {
-        properties[field.name] = { type: field.type };
+        properties[field.name] = { type: field.type as SchemaObjectType };
       }
       schema = {
         type: 'object',
@@ -118,12 +125,12 @@ function buildOperation(
       content: {
         'application/json': { schema },
       },
-    };
+    } as RequestBodyObject;
   }
 
   // Responses
   for (const resp of method.responses) {
-    const responseObj: OpenAPIV3_1.ResponseObject = {
+    const responseObj: ResponseObject = {
       description: resp.description,
     };
 
@@ -136,12 +143,12 @@ function buildOperation(
     } else if (resp.schema) {
       responseObj.content = {
         'application/json': {
-          schema: resp.schema as OpenAPIV3_1.SchemaObject,
+          schema: resp.schema as SchemaObject,
         },
       };
     }
 
-    operation.responses[String(resp.statusCode)] = responseObj;
+    operation.responses![String(resp.statusCode)] = responseObj;
   }
 
   // Security

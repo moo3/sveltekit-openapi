@@ -36,9 +36,9 @@ describe('generateOpenAPIDocument', () => {
     expect(doc.servers![0].url).toBe('https://api.test.com');
   });
 
-  it('omits servers when not configured', () => {
+  it('has empty servers when not configured', () => {
     const doc = generateOpenAPIDocument([], [], {});
-    expect(doc.servers).toBeUndefined();
+    expect(doc.servers).toEqual([]);
   });
 });
 
@@ -144,7 +144,7 @@ describe('security schemes', () => {
     expect(doc.components?.securitySchemes?.bearerAuth?.type).toBe('http');
   });
 
-  it('omits securitySchemes when no routes require auth', () => {
+  it('has no securitySchemes when no routes require auth', () => {
     const routes: RouteInfo[] = [makeRoute({
       routePath: '/api/health',
       methods: [{
@@ -155,7 +155,7 @@ describe('security schemes', () => {
     })];
 
     const doc = generateOpenAPIDocument(routes, [], {});
-    expect(doc.components?.securitySchemes).toBeUndefined();
+    expect(doc.components?.securitySchemes).toEqual({});
   });
 
   it('adds role info to summary', () => {
